@@ -2,5 +2,12 @@ module.exports = {
   reactStrictMode: false,
   swcMinify: true,
   experimental: { appDir: true },
-  images: {},
+  images: {
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "**openweathermap.org",
+      },
+    ],
+  },
 };
