@@ -16,9 +16,9 @@ import {
   defaults as defaultInteractions,
 } from "ol/interaction.js";
 
-let vectorLayer;
-let featuresLayer;
-let map;
+let vectorLayer: VectorSource<Point>;
+let featuresLayer: VectorLayer<VectorSource<Point>>;
+let map: Map;
 let currentPoint;
 
 function createStyle(src) {
@@ -72,6 +72,8 @@ export function addPoint({ lon, lat }) {
 
   currentPoint.setStyle(createStyle("assets/map-pin-filled-selected.svg"));
   vectorLayer.addFeature(currentPoint);
+  map.getView().setCenter(fromLonLat([lon, lat]));
+  map.getView().setZoom(5);
 }
 
 export function init({ target, fetchForcast }) {
