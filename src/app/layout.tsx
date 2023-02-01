@@ -1,5 +1,6 @@
 import MantineProvider from "~/utils/providers/Mantine";
 import "~/styles/globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 export default async function Layout({ children }) {
   return (
@@ -13,6 +14,7 @@ export default async function Layout({ children }) {
       </head>
       <body className="">
         <MantineProvider>{children}</MantineProvider>
+        <Analytics />
       </body>
     </html>
   );
