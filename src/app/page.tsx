@@ -9,6 +9,7 @@ import { Accordion } from "@mantine/core";
 import { useDebouncedValue } from "@mantine/hooks";
 import Image from "next/image";
 import dayjs from "dayjs";
+import { addPoint } from "~/ol";
 
 export default function Page() {
   const [suggestions, setSuggestions] = useState([]);
@@ -23,6 +24,7 @@ export default function Page() {
   const handleSubmit = (val) => {
     setIsValueSelected(true);
     fetchForecast({ lat: val.lat, lon: val.lon });
+    addPoint({ lat: val.lat, lon: val.lon });
   };
 
   const fetchSuggestion = async () => {
@@ -59,6 +61,7 @@ export default function Page() {
       setSuggestions([]);
       return;
     }
+
     setLoading(true);
     fetchSuggestion().then((results) => {
       const newSuggestions = results

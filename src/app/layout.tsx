@@ -5,7 +5,7 @@ export default async function Layout({ children }) {
   return (
     <html lang="fr">
       <head>
-        <title>CV Érik Aouizerate</title>
+        <title>MFI TEST / ERIK A</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
