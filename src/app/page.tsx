@@ -111,7 +111,9 @@ export default function Page() {
             <Accordion.Panel>
               <Switch
                 label="Click Anywhere for forecast"
-                onChange={setIsAnyWhereForecast}
+                onChange={(e) => {
+                  setIsAnyWhereForecast(e.currentTarget.checked);
+                }}
               />
               <h3 className="mb-0">Prévisions méteo</h3>
               <div className="flex justify-center">
