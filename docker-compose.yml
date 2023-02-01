@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  frontend:
+    build: .
+    ports:
+      - "8080:3000"
+    environment:
+      - NEXT_PUBLIC_NOMINATIM_OSM_URL=https://nominatim.openstreetmap.org
+      - NEXT_PUBLIC_OPENWEATHER_URL=https://api.openweathermap.org
+      - NEXT_PUBLIC_OPENWEATHER_APIKEY=539a92a71fbb1b6ee46f8afdfc95bb2e
