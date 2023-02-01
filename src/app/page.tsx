@@ -1,6 +1,6 @@
 "use client";
 
-import { Autocomplete } from "@mantine/core";
+import { Autocomplete, Switch } from "@mantine/core";
 import { useEffect, useState } from "react";
 import Map from "./Map";
 import ky from "ky";
@@ -9,7 +9,7 @@ import { Accordion } from "@mantine/core";
 import { useDebouncedValue } from "@mantine/hooks";
 import Image from "next/image";
 import dayjs from "dayjs";
-import { addPoint } from "~/ol";
+import { addPoint, setIsAnyWhereForecast } from "~/ol";
 
 export default function Page() {
   const [suggestions, setSuggestions] = useState([]);
@@ -109,6 +109,10 @@ export default function Page() {
               />
             </Accordion.Control>
             <Accordion.Panel>
+              <Switch
+                label="Click Anywhere for forecast"
+                onChange={setIsAnyWhereForecast}
+              />
               <h3 className="mb-0">Prévisions méteo</h3>
               <div className="flex justify-center">
                 {loadingForcast && <Loader />}

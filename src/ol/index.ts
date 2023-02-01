@@ -21,6 +21,12 @@ let featuresLayer: VectorLayer<VectorSource<Point>>;
 let map: Map;
 let currentPoint;
 
+let isAnyWhereForecast = false;
+
+export function setIsAnyWhereForecast(val) {
+  isAnyWhereForecast = val;
+}
+
 function createStyle(src) {
   return new Style({
     image: new Icon({
@@ -61,9 +67,10 @@ function getPoints() {
   return [mfiToulouse, mfSaintMande, wmoGeneve];
 }
 
-export function addPoint({ lon, lat }) {
+export function addPoint({ lon, lat, noMove = false }) {
   if (currentPoint) {
     resetFeatures();
+    featuresLayer.getSource().removeFeature(currentPoint);
   }
 
   currentPoint = new Feature({
@@ -72,8 +79,10 @@ export function addPoint({ lon, lat }) {
 
   currentPoint.setStyle(createStyle("assets/map-pin-filled-selected.svg"));
   vectorLayer.addFeature(currentPoint);
-  map.getView().setCenter(fromLonLat([lon, lat]));
-  map.getView().setZoom(5);
+  if (!noMove) {
+    map.getView().setCenter(fromLonLat([lon, lat]));
+    map.getView().setZoom(5);
+  }
 }
 
 export function init({ target, fetchForcast }) {
@@ -110,8 +119,15 @@ export function init({ target, fetchForcast }) {
       return feature;
     });
     if (!feature) {
+      if (!isAnyWhereForecast) {
+        return;
+      }
+      const [lon, lat] = toLonLat(map.getCoordinateFromPixel(evt.pixel));
+      addPoint({ lon, lat, noMove: true });
+      fetchForcast({ lon, lat });
       return;
     }
+
     resetFeatures();
     var lonlat = toLonLat((feature.getGeometry() as Point).getCoordinates());
     var lon = lonlat[0];
