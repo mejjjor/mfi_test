@@ -13,7 +13,7 @@ export default async function Layout({ children }) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </head>
-      <body className="">
+      <body className="overflow-hidden">
         <MantineProvider>{children}</MantineProvider>
         <AnalyticsProvider />
       </body>
