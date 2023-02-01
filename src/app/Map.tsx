@@ -78,6 +78,11 @@ export default function MapWrapper({ fetchForcast }) {
       controls: [],
     });
 
+    const extent = initialVertorLayer.getExtent();
+    initialMap.getView().fit(extent, { padding: [250, 250, 250, 250] });
+
+    // initialMap.getView().fit(initalFeaturesLayer.getExtent());
+
     initialMap.on("click", function (evt) {
       const feature = initialMap.forEachFeatureAtPixel(
         evt.pixel,
